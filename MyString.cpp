@@ -1,6 +1,7 @@
 #include "MyString.h"
 #include <iostream>
-#include <string.h>
+#include <cstring>
+#include <cassert>
 
 using namespace std;
 
@@ -12,12 +13,12 @@ MyString::MyString(char *string) {
 MyString::MyString(const MyString &string) {
     this->l=string.l;
     if(buf!=NULL){
-        buf=new buf[l];
+        buf=new char[l];
         for(int i=0;i<string.l;i++)
             buf[i]=string.buf[i];
     }
     else
-        buff=NULL;
+        buf=NULL;
 }
 
 MyString &MyString::operator=(const MyString &string) {
@@ -32,14 +33,14 @@ ostream &operator<<(ostream &out, const MyString &string){
     out<<"Sirul: ";
     if(string.buf!=NULL)
         for(int i=0;i<string.l;i++)
-            out<<buf[i];
+            out<<string.buf[i];
     return out;
 }
 
-istream &operator>>(istream &in, const MyString &string){
+istream &operator>>(istream &in,  MyString &string){
     cout<<"Sirul:"<<"\n";
     if(string.buf!=NULL)
-        delete[] buf;
+        delete[] string.buf;
     string.buf=new char[100];
     in>>string.buf;
     string.l=strlen(string.buf)+1;
@@ -49,4 +50,25 @@ istream &operator>>(istream &in, const MyString &string){
 char &MyString::operator[](int i) {
     assert(i>=0 && i< this->l);
     return this->buf[i];
+}
+
+int MyString::get_len() {
+    int len;
+    len=this->l;
+    return len;
+}
+
+const MyString operator+( const MyString &a, const  MyString &b){
+    int dim1=a.l, dim2=b.l;
+    int dim_fin=dim1+dim2-1;
+    char c[dim_fin];
+    if(a.buf!=NULL)
+        strcpy(c,a.buf);
+    if(b.buf!=NULL)
+        strcpy(c,b.buf);
+
+
+    MyString result(c);
+
+    return result;
 }

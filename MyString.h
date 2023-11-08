@@ -23,6 +23,8 @@ public:
 
     char &operator[](int);
 
+    int get_len();
+
     friend const MyString operator+(const MyString &, const MyString &); /* concateneaza 2 stringuri si salveaza rezultatul intr-un obiect nou de tip MyString pe care il returneaza*/
     MyString &operator+=(const MyString &); /*concateneaza 2 stringuri si salveaza rezultatul in primul operand a carui adresa o returneaza*/
     friend bool operator==(const MyString &, const MyString &); /*verifica daca cele 2 siruri sunt identice*/
