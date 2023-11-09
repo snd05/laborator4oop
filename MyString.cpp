@@ -72,3 +72,34 @@ const MyString operator+( const MyString &a, const  MyString &b){
 
     return result;
 }
+
+MyString &MyString::operator+=(const MyString &a) {
+    int dim=this->l+a.l+1;
+    char *newbuf=new char[dim];
+    strcpy(newbuf,buf);
+    strcat(newbuf,a.buf);
+    delete[] buf;
+    buf=newbuf;
+
+    return *this;
+}
+
+bool  operator==(const MyString &a, const MyString &b){
+    return((a.buf==b.buf)&&(a.l==b.l));
+}
+
+bool operator!=(const MyString &a, const MyString &b){
+    return((a.buf!=b.buf)&&(a.l!=b.l));
+}
+
+int MyString::lookFor(char s) {
+    int num=0;
+    for(int i=0;i<l;i++)
+        if(buf[i]==s)
+            num++;
+    cout<<"Caracterul "<<s<<" are "<<num<<" aparitii.";
+}
+
+MyString::~MyString() {
+
+}
